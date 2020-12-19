@@ -1,28 +1,28 @@
 <template>
   <input type="button" value="check" @click="check">
-  <h2>{{data}}</h2>
 </template>
 
 <script>
-import { ref } from 'vue'
-import { getUrlData } from '../lib/request'
+import axios from 'axios'
 
 export default {
   setup () {
-    const data = ref('')
+    const url = new URL(location.href.replace('#', '?'))
+    const token = url.searchParams.get('access_token')
     const check = () => {
-      const code = getUrlData('code')
-      if (code) {
-        fetch('https://api.spotify.com/v1/me/playlists', {
-          headers: {
-            Authorization: `Bearer ${process.env.VUE_APP_CLIENTSECRET}`
-          }
-        }).then(res => res.json())
-          .then(data => console.log(data))
-      }
+      axios({
+        url: 'https://api.spotify.com/v1/me',
+        method: 'Get',
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      }).then(res => {
+        console.log(res.data)
+      }).catch(res => {
+        console.log(res)
+      })
     }
     return {
-      data,
       check
     }
   }

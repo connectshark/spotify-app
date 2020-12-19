@@ -16,6 +16,11 @@ const router = createRouter({
       component: () => import('../views/login.vue')
     },
     {
+      path: '/authorize',
+      name: 'authorize',
+      component: () => import('../views/authorize.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       redirect: {
         path: '/home'
