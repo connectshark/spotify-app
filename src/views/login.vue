@@ -7,8 +7,9 @@ export default {
   setup () {
     const url = 'http%3A%2F%2Flocalhost%3A8080%2Fauthorize'
     const type = 'token'
+    const scope = 'user-read-private%20user-read-email'
     return {
-      url: `https://accounts.spotify.com/authorize?client_id=${process.env.VUE_APP_CLIENTID}&response_type=${type}&redirect_uri=${url}&scope=user-read-private%20user-read-email`
+      url: `https://accounts.spotify.com/authorize?client_id=${process.env.VUE_APP_CLIENTID}&response_type=${type}&redirect_uri=${url}&scope=${scope}`
     }
   }
 }
