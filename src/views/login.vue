@@ -5,7 +5,7 @@
 <script>
 export default {
   setup () {
-    const url = 'http%3A%2F%2Flocalhost%3A8080%2Fauthorize'
+    const url = process.env.NODE_ENV === 'production' ? 'https%3A%2F%2Fspotify-app.onrender.com%2Fauthorize' : 'http%3A%2F%2Flocalhost%3A8080%2Fauthorize'
     const type = 'token'
     const scope = 'user-read-private%20user-read-email'
     return {
