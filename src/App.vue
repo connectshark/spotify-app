@@ -2,9 +2,7 @@
   <ul>
     <router-link to="/home">首頁</router-link>
     <router-link to="/login">登入</router-link>
-    <router-link to="/authorize">authorize</router-link>
   </ul>
-  
   <router-view></router-view>
 </template>
 

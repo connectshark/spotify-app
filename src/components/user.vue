@@ -5,22 +5,14 @@
 </template>
 
 <script>
-import { computed, defineComponent } from 'vue'
-import { useStore } from 'vuex'
-import axios from 'axios'
+import { defineComponent } from 'vue'
+import instance from '../lib/request'
 
 export default defineComponent({
   setup () {
-    const store = useStore()
-    const token = computed(() => store.state.token)
     return new Promise((resolve) => {
-      axios({
-        url: 'https://api.spotify.com/v1/me',
-        method: 'Get',
-        headers: {
-          Authorization: 'Bearer ' + token.value
-        }
-      }).then(res => {
+      instance.get('/v1/me')
+        .then(res => {
         const info = res.data
         resolve({
           imgSrc: info.images[0].url,
