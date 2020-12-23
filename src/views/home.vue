@@ -14,6 +14,7 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 import User from '../components/user'
 import { useRouter } from 'vue-router'
+import instance from '../lib/request'
 
 export default {
   setup () {
@@ -23,6 +24,12 @@ export default {
     if (token === '') {
       router.replace('/login')
     }
+    instance.get('/v1/browse/categories', {
+      params: {
+        country: 'TW',
+        locale: 'zh_TW'
+      }
+    }).then(res => console.log(res))
   },
   components: {
     User
