@@ -1,20 +1,35 @@
 <template>
-  <Suspense>
-    <template #default>
-      <User/>
-    </template>
-    <template #fallback>
-      <h2>loading</h2>
-    </template>
-  </Suspense>
+  <div class="home">
+    <div class="category">
+      <span v-if="loading">loading</span>
+      <template v-else>
+        <ImgBox
+        v-for="item in categories"
+        :key="item.id"
+        :id="item.id"
+        :action="action"
+        :url="item.icons[0].url"
+        :name="item.name"/>
+      </template>
+    </div>
+    <Suspense>
+      <template #default>
+        <User/>
+      </template>
+      <template #fallback>
+        <h2>loading</h2>
+      </template>
+    </Suspense>
+  </div>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import User from '../components/user'
 import { useRouter } from 'vue-router'
 import instance from '../lib/request'
+import ImgBox from '../components/imgBox'
 
 export default {
   setup () {
@@ -24,18 +39,42 @@ export default {
     if (token === '') {
       router.replace('/login')
     }
+    const loading = ref(true)
+    const categories = ref(null)
     instance.get('/v1/browse/categories', {
       params: {
         country: 'TW',
         locale: 'zh_TW'
       }
-    }).then(res => console.log(res))
+    }).then(res => {
+      categories.value = res.data.categories.items
+      loading.value = false
+    })
+    const action = id => {
+      router.push('/category/' + id)
+    }
+    return {
+      loading,
+      categories,
+      action
+    }
   },
   components: {
-    User
+    User,
+    ImgBox
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/base.scss';
+.home{
+  background-color: $bg;
+  .category{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
 </style>

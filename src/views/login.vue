@@ -21,7 +21,7 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/scss/base.scss';
 .container{
-  background-color: #333;
+  background-color: $bg;
   height: 100%;
   &::before{
     content: '';

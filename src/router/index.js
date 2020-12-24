@@ -8,7 +8,7 @@ const router = createRouter({
     {
       path: '/home',
       name: 'home',
-      component: () => import('../views/home.vue')
+      component: () => import('../views/home.vue'),
     },
     {
       path: '/login',
@@ -19,6 +19,18 @@ const router = createRouter({
       path: '/authorize',
       name: 'authorize',
       component: () => import('../views/authorize.vue')
+    },
+    {
+      path: '/category/:category',
+      name: 'category',
+      component: () => import('../views/category.vue'),
+      props: true
+    },
+    {
+      path: '/playlists/:listId',
+      name: 'playlists',
+      component: () => import('../views/playlists.vue'),
+      props: true
     },
     {
       path: '/:pathMatch(.*)*',
