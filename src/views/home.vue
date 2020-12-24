@@ -10,7 +10,7 @@
       <span v-if="loading">loading</span>
       <template v-else>
         <ImgBox
-        v-for="item in categories"
+        v-for="item in data.categories.items"
         :key="item.id"
         :id="item.id"
         :action="action"
@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 import User from '../components/user'
 import { useRouter } from 'vue-router'
-import instance from '../lib/request'
 import ImgBox from '../components/imgBox'
+import queryData from '../hook/request'
 
 export default {
   setup () {
@@ -45,23 +45,16 @@ export default {
     if (token === '') {
       router.replace('/login')
     }
-    const loading = ref(true)
-    const categories = ref(null)
-    instance.get('/v1/browse/categories', {
-      params: {
-        country: 'TW',
-        locale: 'zh_TW'
-      }
-    }).then(res => {
-      categories.value = res.data.categories.items
-      loading.value = false
+    const { data, loading } = queryData('/v1/browse/categories', {
+      country: 'TW',
+      locale: 'zh_TW'
     })
     const action = id => {
       router.push('/category/' + id)
     }
     return {
       loading,
-      categories,
+      data,
       action
     }
   },
