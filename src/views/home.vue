@@ -1,5 +1,11 @@
 <template>
   <div class="home">
+    <div class="top">
+      <h1 class="title">spotify-app</h1>
+      <router-link to="/search" class="search">
+        <span class="material-icons">search</span>
+      </router-link>
+    </div>
     <div class="category">
       <span v-if="loading">loading</span>
       <template v-else>
@@ -70,6 +76,27 @@ export default {
 @import '../assets/scss/base.scss';
 .home{
   background-color: $bg;
+  .top{
+    background-color: #171717;
+    position: relative;
+    .search{
+      position: absolute;
+      right: 10px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      width: 30px;
+      height: 30px;
+      span{
+        font-size: 30px;
+        color: #fff;
+      }
+    }
+    .title{
+      @include title;
+      color: #fff;
+    }
+  }
   .category{
     display: flex;
     flex-flow: row wrap;

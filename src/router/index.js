@@ -33,6 +33,11 @@ const router = createRouter({
       props: true
     },
     {
+      path: '/search',
+      name: 'search',
+      component: () => import('../views/search.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       redirect: {
         path: '/home'
