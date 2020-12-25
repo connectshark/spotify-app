@@ -18,14 +18,7 @@
         :name="item.name"/>
       </template>
     </div>
-    <Suspense>
-      <template #default>
-        <User/>
-      </template>
-      <template #fallback>
-        <h2>loading</h2>
-      </template>
-    </Suspense>
+    <User/>
   </div>
 </template>
 

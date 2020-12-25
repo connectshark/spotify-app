@@ -34,8 +34,7 @@ export default {
     }
   }
   @include rwd(desktop) {
-    width: 100%;
-    max-width: 240px;
+    width: 20%;
     margin: unset;
   }
   .img-title{

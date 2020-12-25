@@ -1,31 +1,26 @@
 <template>
-  <img :src="imgSrc" :alt="name">
-  <h2><a :href="link" target="_blank" rel="noopener noreferrer">{{name}}</a></h2>
-  <h3>國籍: {{country}}</h3>
+  <div class="loading" v-if="loading">loading.....</div>
+  <template v-else>
+    <div class="user">
+      <figure>
+        <img :src="data.images[0].url" :alt="data.id">
+      </figure>
+    </div>
+  </template>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import instance from '../lib/request'
-
-export default defineComponent({
+import queryData from '../hook/request'
+export default {
   setup () {
-    return new Promise((resolve) => {
-      instance.get('/v1/me')
-        .then(res => {
-        const info = res.data
-        resolve({
-          imgSrc: info.images[0].url,
-          name: info.display_name,
-          id: info.id,
-          level: info.product,
-          country: info.country,
-          link: info.external_urls.spotify
-        })
-      }).catch(res => {
-        console.log(res)
-      })
-    })
+    const { data, loading} = queryData('/v1/me')
+    return {
+      data,
+      loading
+    }
   }
-})
+}
 </script>
+
+<style lang="scss" scoped>
+</style>
