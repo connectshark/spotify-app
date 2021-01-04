@@ -21,10 +21,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/scss/base.scss';
-@import '../assets/scss/rwd.scss';
 .box{
-  width: 50%;
-  margin: auto;
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -32,10 +29,6 @@ export default {
     img{
       transform: scale(1.2);
     }
-  }
-  @include rwd(desktop) {
-    width: 20%;
-    margin: unset;
   }
   .img-title{
     position: absolute;

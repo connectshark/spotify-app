@@ -42,11 +42,16 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/scss/base.scss';
+@import '../assets/scss/rwd.scss';
 .category{
   background-color: $bg;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-around;
+  column-count: 2;
+  column-gap: 0;
+  @include rwd(medium) {
+    column-count: 3;
+  }
+  @include rwd(desktop) {
+    column-count: 4;
+  }
 }
 </style>
