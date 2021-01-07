@@ -21,7 +21,7 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/scss/base.scss';
 .container{
-  height: 100%;
+  height: 100vh;
   &::before{
     content: '';
     width: 0;
