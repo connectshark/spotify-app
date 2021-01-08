@@ -1,19 +1,27 @@
 <template>
   <figure class="box" @click="clickHandler">
-    <img :src="url" :alt="name">
+    <img :src="url" :alt="name" :style="{filter: `blur(${blurRate}px)`}" @load="blurHandler">
     <figcaption class="img-title" v-if="name">{{name}}</figcaption>
   </figure>
 </template>
 
 <script>
+import { ref } from 'vue'
+
 export default {
   props: ['url', 'name', 'id', 'action'],
   setup (props) {
     const clickHandler = () => {
       props.action(props.id)
     }
+    const blurRate = ref(2)
+    const blurHandler = () => {
+      blurRate.value = 0
+    }
     return {
-      clickHandler
+      clickHandler,
+      blurHandler,
+      blurRate
     }
   }
 }

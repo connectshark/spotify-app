@@ -1,13 +1,16 @@
 <template>
   <div class="home">
-    <div class="top">
-      <h1 class="title">spotify-app</h1>
-      <router-link to="/search" class="search">
-        <span class="material-icons">search</span>
-      </router-link>
-    </div>
+    <Header :title="title"/>
     <div class="category">
-      <span v-if="loading">loading</span>
+      <div v-if="loading" class="loader">
+        <div class="loader-inner line-scale-pulse-out">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
       <template v-else>
         <ImgBox
         v-for="item in data.categories.items"
@@ -29,7 +32,7 @@ import User from '../components/user'
 import { useRouter } from 'vue-router'
 import ImgBox from '../components/imgBox'
 import queryData from '../hook/request'
-
+import Header from '../components/header'
 export default {
   setup () {
     const store = useStore()
@@ -48,12 +51,14 @@ export default {
     return {
       loading,
       data,
-      action
+      action,
+      title: 'spotify-app'
     }
   },
   components: {
     User,
-    ImgBox
+    ImgBox,
+    Header
   }
 }
 </script>
@@ -63,27 +68,6 @@ export default {
 @import '../assets/scss/rwd.scss';
 .home{
   background-color: $bg;
-  .top{
-    background-color: #171717;
-    position: relative;
-    .search{
-      position: absolute;
-      right: 10px;
-      top: 0;
-      bottom: 0;
-      margin: auto;
-      width: 30px;
-      height: 30px;
-      span{
-        font-size: 30px;
-        color: #fff;
-      }
-    }
-    .title{
-      @include title;
-      color: #fff;
-    }
-  }
   .category{
     column-count: 2;
     column-gap: 0;

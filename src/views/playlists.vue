@@ -1,4 +1,5 @@
 <template>
+  <Header :title="title"/>
   <div class="playlists">
     <p v-if="loading">loading</p>
     <template v-else>
@@ -44,6 +45,7 @@
 <script>
 import { watch } from 'vue'
 import queryData from '../hook/request'
+import Header from '../components/header'
 
 export default {
   props: ['listId'],
@@ -59,8 +61,12 @@ export default {
 
     return {
       loading,
-      data
+      data,
+      title: 'playList'
     }
+  },
+  components: {
+    Header
   }
 }
 </script>

@@ -1,4 +1,5 @@
 <template>
+  <Header :title="title"/>
   <div class="category">
     <span v-if="loading">loading</span>
     <template v-else>
@@ -15,6 +16,7 @@
 import ImgBox from '../components/imgBox'
 import { useRouter } from 'vue-router'
 import queryData from '../hook/request'
+import Header from '../components/header'
 
 export default {
   props: ['category'],
@@ -31,11 +33,13 @@ export default {
     return {
       loading,
       data,
-      action
+      action,
+      title: 'category'
     }
   },
   components: {
-    ImgBox
+    ImgBox,
+    Header
   }
 }
 </script>
