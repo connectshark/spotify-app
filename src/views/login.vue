@@ -9,7 +9,7 @@ export default {
   setup () {
     const url = process.env.NODE_ENV === 'production' ? 'https://spotify-app.onrender.com/authorize' : 'http://localhost:8080/authorize'
     const type = 'token'
-    const scope = 'user-read-private&user-read-email'
+    const scope = 'user-read-email&user-read-recently-played'
     return {
       url: `https://accounts.spotify.com/authorize?client_id=${process.env.VUE_APP_CLIENTID}&response_type=${type}&redirect_uri=${url}&scope=${scope}`,
       btnName: '登入spotify'

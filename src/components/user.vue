@@ -2,8 +2,10 @@
   <div class="loading" v-if="loading">loading.....</div>
   <template v-else>
     <div class="user">
-      <figure>
+      <p class="text">感謝</p>
+      <figure class="user-icon">
         <img :src="data.images[0].url" :alt="data.id">
+        <figcaption>{{data.display_name}}</figcaption>
       </figure>
     </div>
   </template>
@@ -23,4 +25,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/base.scss';
+.user{
+  padding: 20px 0;
+  .text{
+    color: #fff;
+    @include title;
+  }
+  .user-icon{
+    width: 60px;
+    margin: auto;
+    figcaption{
+      color: #fff;
+      @include word;
+    }
+    img{
+      border-radius: 50%;
+      width: 100%;
+    }
+  }
+}
 </style>

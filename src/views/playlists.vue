@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import { watch } from 'vue'
 import queryData from '../hook/request'
 import Header from '../components/header'
 
@@ -52,11 +51,6 @@ export default {
   setup (props) {
     const { data, loading } = queryData('/v1/playlists/' + props.listId, {
       playlist_id: props.listId
-    })
-
-    watch(data, value => {
-      console.log(value)
-      console.log(value.tracks.items)
     })
 
     return {
