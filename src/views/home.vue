@@ -15,7 +15,7 @@
         :loading="recenterLoading"
         :title="recentTitle"
       />
-    <router-link to="/menu">瀏覽</router-link>
+      <router-link to="/menu" class="btn">瀏覽</router-link>
     </div>
   </div>
 </template>
@@ -56,5 +56,15 @@ export default {
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
+  .btn{
+    @include title;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #1CB854;
+    color: #fff;
+    text-decoration: none;
+    padding:5px 20px;
+    border-radius: 30px;
+  }
 }
 </style>

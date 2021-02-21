@@ -46,7 +46,8 @@ export function getFeatureItem () {
       return {
         imgUrl: item.images[0].url,
         name: item.name,
-        id: item.id
+        id: item.id,
+        type: 'playlists'
       }
     })
   })
@@ -68,11 +69,11 @@ export function getRecentList () {
   watch(data, () => {
     loading.value = false
     recentList.value = data.value.items.map(item => {
-      console.log(item)
       return {
         imgUrl: item.track.album.images[0].url,
         name: item.track.name,
-        id: item.track.album.id
+        id: item.track.album.id,
+        type: 'albums'
       }
     })
   })

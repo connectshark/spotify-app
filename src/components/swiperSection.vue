@@ -23,7 +23,8 @@
         <bubble
           :imgSrc="item.imgUrl"
           :name="item.name"
-          :url="item.id"
+          :id="item.id"
+          :type="item.type"
         />
       </swiper-slide>
     </Swiper>

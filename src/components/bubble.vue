@@ -1,16 +1,16 @@
 <template>
   <div class="bubble">
-    <router-link :to="'/playlists/' + url">
+    <router-link :to="'/' + type + '/' + id">
       <div class="img-place" :style="{ backgroundImage: 'url(' + imgSrc + ')' }">
       </div>
     </router-link>
-    <router-link :to="'/playlists/' + url">{{name}}</router-link>
+    <router-link :to="'/' + type + '/' + id">{{name}}</router-link>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['imgSrc', 'name', 'url']
+  props: ['imgSrc', 'name', 'id', 'type']
 }
 </script>
 
@@ -19,7 +19,7 @@ export default {
 .bubble{
   .img-place{
     width: 100%;
-    padding-bottom: 30vw;
+    padding-bottom: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
