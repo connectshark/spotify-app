@@ -15,13 +15,13 @@
       :space-between="25"
     >
       <swiper-slide
-        v-for="item in data.items"
-        :key="item.track.id"
+        v-for="item in list"
+        :key="item.id"
       >
         <bubble
-          :imgSrc="item.track.album.images[0].url"
-          :name="item.track.name"
-          :url="item.track.external_urls.spotify"
+          :imgSrc="item.imgUrl"
+          :name="item.name"
+          :url="item.id"
         />
       </swiper-slide>
     </Swiper>
@@ -34,9 +34,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/swiper.scss'
 
 export default {
-  props: ['title'],
-  setup () {
-  },
+  props: ['title', 'list', 'loading'],
   components: {
     Swiper,
     SwiperSlide,

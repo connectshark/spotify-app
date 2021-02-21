@@ -1,64 +1,46 @@
 <template>
   <div class="home">
-    <Header :title="'首頁'"/>
-    <div class="loader" v-if="loading">
-      <div class="loader-inner line-scale-pulse-out-rapid">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-    <div class="content" v-else>
-      <h2>{{data.message}}</h2>
-      <Swiper
-        :slides-per-view="3"
-        :space-between="25"
-      >
-      <swiper-slide
-        v-for="item in data.playlists.items"
-        :key="item.snapshot_id"
-      >
-        <bubble
-          :imgSrc="item.images[0].url"
-          :name="item.name"
-          :url="item.id"
-        />
-      </swiper-slide>
-    </Swiper>
+    <Header
+      :title="'首頁'"
+      :needBack="false"
+    />
+    <div class="content">
+      <swiperSection
+        :list="featureList"
+        :loading="featureLoading"
+        :title="featureTitle"
+      />
+      <swiperSection
+        :list="recentList"
+        :loading="recenterLoading"
+        :title="recentTitle"
+      />
     <router-link to="/menu">瀏覽</router-link>
     </div>
   </div>
 </template>
 
 <script>
-import { watch } from 'vue'
+import swiperSection from '../components/swiperSection'
 import Header from '../components/header'
-import queryData from '../hook/request'
-import bubble from '../components/bubble'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/swiper.scss'
+import { getFeatureItem, getRecentList } from '../hook/request'
 
 export default {
   setup () {
-    const { data, loading } = queryData('v1/browse/featured-playlists', {
-      country: 'TW',
-      locale: 'zh_TW'
-    })
-    watch(data, value => {
-      console.log(value)
-    })
+    const { featureList, loading: featureLoading, title: featureTitle } = getFeatureItem()
+    const { recentList, loading: recenterLoading, title: recentTitle }  = getRecentList()
     return {
-      data,
-      loading
+      featureList,
+      featureLoading,
+      featureTitle,
+      recentList,
+      recenterLoading,
+      recentTitle
     }
   },
   components: {
     Header,
-    bubble,
-    Swiper,
-    SwiperSlide
+    swiperSection
   }
 }
 </script>

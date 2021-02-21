@@ -18,7 +18,7 @@ export default {
     title: String,
     needBack: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   setup () {
