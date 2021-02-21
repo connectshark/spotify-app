@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <div class="back" @click="back(-1)">
+    <div class="back" @click="back(-1)" v-if="needBack">
       <span class="material-icons icon">arrow_back</span>
     </div>
     <h1 class="title">{{title}}</h1>
@@ -14,7 +14,13 @@
 import { useRouter } from 'vue-router'
 
 export default {
-  props: ['title'],
+  props: {
+    title: String,
+    needBack: {
+      type: Boolean,
+      default: false
+    }
+  },
   setup () {
     const router = useRouter()
     const back = () => {
