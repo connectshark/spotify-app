@@ -11,12 +11,14 @@
   <section class="section" v-else>
     <h2>{{title}}</h2>
     <Swiper
-      :slides-per-view="3"
+      :slides-per-view="3.5"
       :space-between="25"
+      :wrapperTag="'ul'"
     >
       <swiper-slide
         v-for="item in list"
         :key="item.id"
+        :tag="'li'"
       >
         <bubble
           :imgSrc="item.imgUrl"
