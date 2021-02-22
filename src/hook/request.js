@@ -83,3 +83,29 @@ export function getRecentList () {
     recentList
   }
 }
+
+export function getNewReleaseList () {
+  const { data } = queryData('/v1/browse/new-releases', {
+    country: 'TW'
+  })
+  const loading = ref(true)
+  const title = ref('新發佈')
+  const releaseList = ref([])
+  watch(data, value => {
+    loading.value = false
+    releaseList.value = value.albums.items.map(item => {
+      return {
+        imgUrl: item.images[0].url,
+        name: item.name,
+        id: item.id,
+        type: 'albums'
+      }
+    })
+  })
+
+  return {
+    loading,
+    title,
+    releaseList
+  }
+}

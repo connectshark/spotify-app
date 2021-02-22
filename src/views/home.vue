@@ -15,6 +15,11 @@
         :loading="recenterLoading"
         :title="recentTitle"
       />
+      <swiperSection
+        :list="releaseList"
+        :loading="releaseLoading"
+        :title="releaseTitle"
+      />
       <router-link to="/menu" class="btn">瀏覽</router-link>
     </div>
   </div>
@@ -23,19 +28,23 @@
 <script>
 import swiperSection from '../components/swiperSection'
 import Header from '../components/header'
-import { getFeatureItem, getRecentList } from '../hook/request'
+import { getFeatureItem, getNewReleaseList, getRecentList } from '../hook/request'
 
 export default {
   setup () {
     const { featureList, loading: featureLoading, title: featureTitle } = getFeatureItem()
     const { recentList, loading: recenterLoading, title: recentTitle }  = getRecentList()
+    const { releaseList, loading: releaseLoading, title: releaseTitle } = getNewReleaseList()
     return {
       featureList,
       featureLoading,
       featureTitle,
       recentList,
       recenterLoading,
-      recentTitle
+      recentTitle,
+      releaseList,
+      releaseLoading,
+      releaseTitle
     }
   },
   components: {
