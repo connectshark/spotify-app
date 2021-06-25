@@ -28,13 +28,13 @@
 <script>
 import swiperSection from '../components/swiperSection'
 import Header from '../components/header'
-import { getFeatureItem, getNewReleaseList, getRecentList } from '../hook/request'
+import connect from '../lib/connect'
 
 export default {
   setup () {
-    const { featureList, loading: featureLoading, title: featureTitle } = getFeatureItem()
-    const { recentList, loading: recenterLoading, title: recentTitle }  = getRecentList()
-    const { releaseList, loading: releaseLoading, title: releaseTitle } = getNewReleaseList()
+    const { featureList, loading: featureLoading, title: featureTitle } = connect.getFeatureItem()
+    const { recentList, loading: recenterLoading, title: recentTitle }  = connect.getRecentList()
+    const { releaseList, loading: releaseLoading, title: releaseTitle } = connect.getNewReleaseList()
     return {
       featureList,
       featureLoading,
