@@ -45,12 +45,17 @@
 <script>
 import queryData from '../hook/request'
 import Header from '../components/header'
+import { watch } from '@vue/runtime-core'
 
 export default {
   props: ['listId'],
   setup (props) {
     const { data, loading } = queryData('/v1/playlists/' + props.listId, {
       playlist_id: props.listId
+    })
+
+    watch(data, value => {
+      console.log(value)
     })
 
     return {

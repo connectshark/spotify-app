@@ -11,66 +11,37 @@
       </div>
     </div>
     <div class="content" v-else>
-      <div class="hero-img" :style="{ backgroundImage: 'url(' + data.images[0].url + ')' }">
-        <h2>{{data.name}}</h2>
+      <div class="hero-img">
+        <img :src="data.images[0].url" alt="albums" @dragstart.prevent>
       </div>
-    </div>
-    <!-- <template v-else>
-      <div class="title">
-        <figure class="hero-image">
-          <img :src="data.images[0].url" :alt="data.name">
-        </figure>
-        <h1>{{data.name}}</h1>
-        <h2>{{data.description}}</h2>
-        <p class="info">
-          <span class="owner">{{ data.owner.display_name }}</span>
-          <span class="follower">{{ data.followers.total.toLocaleString() }}人按讚</span>
-          <span class="total-songs">{{ data.tracks.total }}首歌</span>
-        </p>
-        <a :href="data.external_urls.spotify"
-          class="btn"
-          target="_blank"
-          rel="noopener noreferrer">Listen on Spotify</a>
-      </div>
-      <ul class="list">
-        <li v-for="item in data.tracks.items"
-          :key="item.track.external_ids.isrc"
-          class="song">
-          <figure class="song-img">
-            <img :src="item.track.album.images[0].url" :alt="item.track.name">
-          </figure>
-          <div class="song-info">
-            <h4>{{item.track.name}}</h4>
-            <h5>{{item.track.artists[0].name}}</h5>
-          </div>
-          <a :href="item.track.external_urls.spotify"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn">
-            <span class="material-icons icon">play_circle_outline</span>
-          </a>
+      <ul class="tracks">
+        <li class="track-item" v-for="track in data.tracks.items" :key="track.id">
+          <p>{{track.name}}</p>
+          <a :href="track.external_urls.spotify" target="_blank" rel="noopener noreferrer">play</a>
         </li>
       </ul>
-    </template> -->
+    </div>
   </div>
 </template>
 
 <script>
 import queryData from '../hook/request'
 import Header from '../components/header'
-import { watch } from 'vue'
+import { ref, watch } from 'vue'
 
 export default {
   props: ['albumId'],
   setup (props) {
     const { data, loading } = queryData('/v1/albums/' + props.albumId)
+    const title = ref('')
     watch(data, value => {
       console.log(value)
+      title.value = value.name
     })
     return {
       loading,
       data,
-      title: 'album'
+      title
     }
   },
   components: {
@@ -81,25 +52,47 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/scss/base.scss';
-.content{
-  h2{
-    @include title;
-    font-size: 40px;
-    color: #fff;
-  }
-  .hero-img{
-    width: 100%;
-    max-width: 1000px;
-    margin: auto;
-    padding: 20% 0;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    filter: brightness(1);
-    transition: filter .3s;
-    &:hover{
-      filter: brightness(.3);
+.playlists{
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  .content{
+    padding: 20px 0;
+    h2{
+      @include title;
+      font-size: 40px;
+      color: #fff;
+    }
+    .hero-img{
+      width: 60%;
+      border-radius: 50%;
+      margin: auto;
+      overflow: hidden;
+      img{
+        width: 100%;
+        vertical-align: middle;
+      }
+    }
+    .tracks{
+      width: 80%;
+      margin: auto;
+      .track-item{
+        color: #fff;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #292929;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        a{
+          color: #fff;
+        }
+      }
     }
   }
 }
+
 </style>
