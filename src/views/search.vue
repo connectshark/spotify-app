@@ -1,7 +1,7 @@
 <template>
   <div class="search-wrapper">
     <div class="search">
-      <input type="text" :value="r" placeholder="搜尋" v-debounce:300ms="validate" class="bar">
+      <input type="text" v-model="r" placeholder="搜尋" v-debounce:500ms="validate" class="bar">
     </div>
     <span v-if="loading">loading</span>
     <div class="result-group" v-else>
@@ -24,21 +24,26 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue'
-import queryData from '../hook/request'
+import { reactive, ref } from 'vue'
+import query from '@/lib/request'
+
 export default {
   setup () {
     const r = ref('')
-    const { data, loading } = queryData('/v1/search', {
-      q: '周杰倫',
-      type: 'album,artist',
-      market: 'TW'
+    const data = reactive({
+      artists: {},
+      albums: {}
     })
-    watch(data, value => {
-      console.log(value)
-    })
+    const loading = ref(true)
+
+
     const validate = () => {
-      console.log('validate')
+      query(r.value)
+        .then(res => {
+          loading.value = false
+          data.artists = res.artists
+          data.albums = res.albums
+        })
     }
     return {
       r,
@@ -52,6 +57,9 @@ export default {
 
 <style lang="scss" scoped>
 .search-wrapper{
+  a{
+    color: #fff;
+  }
   color: #fff;
   width: 100%;
   max-width: 1200px;
